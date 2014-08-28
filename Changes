@@ -1,6 +1,7 @@
 Revision history for CloudFlare-Client
 
 {{$NEXT}}
+ - Update repo info - git repo split
 
 0.04      2014-08-26
  - Bump to stable
