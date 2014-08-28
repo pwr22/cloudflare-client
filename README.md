@@ -1,7 +1,6 @@
 # CloudFlare::Client
 
-Perl module providing an object orientated interface to CloudFlare's DNS
-client API
+Perl module providing an object orientated interface to CloudFlare's client API
 
 ## Documentation
 
