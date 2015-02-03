@@ -1,6 +1,9 @@
 Revision history for CloudFlare-Client
 
 {{$NEXT}}
+ - Don't load unneeded dzil modules
+ - Use ::Git::GatherDir
+ - Move to GitHub
  - Fix cpan testers failure
  - bits and bobs
  - Update repo info - git repo split
