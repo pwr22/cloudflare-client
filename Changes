@@ -1,6 +1,7 @@
 Revision history for CloudFlare-Client
 
 {{$NEXT}}
+ - Remove vestigial bovine
 
 0.05_1    2015-02-03
  - Bump to more modern Perl (5.16)

@@ -7,7 +7,7 @@ no  indirect     'fatal';
 use namespace::autoclean;
 
 use Readonly;
-use Moo; use MooX::StrictConstructor;
+use Moose; use MooseX::StrictConstructor;
 use CloudFlare::Client::Types 'ErrorCode';
 
 # VERSION
