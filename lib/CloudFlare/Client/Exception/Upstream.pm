@@ -1,7 +1,7 @@
 package CloudFlare::Client::Exception::Upstream;
 # ABSTRACT: Upstream CloudFlare API Exception
 
-use Modern::Perl '2012';
+use Modern::Perl '2013';
 use autodie      ':all';
 no  indirect     'fatal';
 use namespace::autoclean;

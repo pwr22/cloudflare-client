@@ -1,7 +1,7 @@
 package CloudFlare::Client::Exception::Connection;
 # ABSTRACT: CloudFlare API Connection Exception
 
-use Modern::Perl '2012';
+use Modern::Perl '2013';
 use autodie      ':all';
 no  indirect     'fatal';
 use namespace::autoclean;

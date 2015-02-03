@@ -1,5 +1,5 @@
 #!perl -T
-use Modern::Perl '2012';
+use Modern::Perl '2013';
 use autodie      ':all';
 no  indirect     'fatal';
 

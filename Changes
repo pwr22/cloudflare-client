@@ -1,6 +1,7 @@
 Revision history for CloudFlare-Client
 
 {{$NEXT}}
+ - Bump to more modern Perl (5.16)
  - Don't load unneeded dzil modules
  - Use ::Git::GatherDir
  - Move to GitHub
