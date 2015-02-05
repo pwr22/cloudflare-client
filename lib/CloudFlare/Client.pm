@@ -1,6 +1,8 @@
 package CloudFlare::Client;
 # ABSTRACT: Object Orientated Interface to CloudFlare client API
 
+# Or Kavorka will explode
+use 5.014;
 use strict; use warnings;
 use mro 'c3';
 use IO qw(Handle File Dir);
