@@ -1,9 +1,11 @@
 #!perl -T
 
 # Aims to test basic usage of CloudFlare::Client
-use Modern::Perl '2013';
-use autodie      ':all';
-no  indirect     'fatal';
+use strict; use warnings;
+use mro 'c3';
+use IO qw(Handle File Dir);
+use autodie ':all'; no indirect 'fatal';
+use namespace::autoclean;
 
 use Readonly;
 use Try::Tiny;

@@ -1,9 +1,10 @@
 package CloudFlare::Client::Types;
 # ABSTRACT: Types for Cloudflare::Client
 
-use Modern::Perl '2013';
-use autodie      ':all';
-no  indirect     'fatal';
+use strict; use warnings;
+use mro 'c3';
+use IO qw(Handle File Dir);
+use autodie ':all'; no indirect 'fatal';
 use namespace::autoclean;
 
 use Type::Library -base, -declare => qw( CFCode ErrorCode);

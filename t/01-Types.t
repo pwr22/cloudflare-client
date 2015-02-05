@@ -1,13 +1,15 @@
 #!perl -T
-use Modern::Perl '2013';
-use autodie      ':all';
-no  indirect     'fatal';
+use strict; use warnings;
+use mro 'c3';
+use IO qw(Handle File Dir);
+use autodie ':all'; no indirect 'fatal';
+use namespace::autoclean;
+
+use Readonly;
 
 use Test::More;
 use Test::TypeTiny;
-
 use CloudFlare::Client::Types qw( CFCode ErrorCode);
-use Readonly;
 
 plan tests => 9;
 Readonly my $INVLD_CODE => 'E_NTSPCD';

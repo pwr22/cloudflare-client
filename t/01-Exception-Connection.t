@@ -1,7 +1,9 @@
 #!perl -T
-use Modern::Perl '2013';
-use autodie      ':all';
-no  indirect     'fatal';
+use strict; use warnings;
+use mro 'c3';
+use IO qw(Handle File Dir);
+use autodie ':all'; no indirect 'fatal';
+use namespace::autoclean;
 
 use Test::More; use Test::Moose; use Test::Exception;
 use Try::Tiny;
