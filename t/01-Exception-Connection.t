@@ -28,22 +28,11 @@ meta_ok($e);
 # with status
 lives_and { new_ok($CLASS => [ message   => $MSG, status => $STATUS])}
           "construction works with status attr";
-# Work around Moose versions
-if($Moose::VERSION >= 2.1101) {
-    # Missing message attr
-    throws_ok { $CLASS->new(status => $STATUS)}
-              'Moose::Exception::AttributeIsRequired',
-              "construction with missing message attr throws exception";
-    # Extra attr
-    throws_ok { $CLASS->new(message => $MSG, status => $STATUS,
-                            extra => 'arg')}
-              'Moose::Exception::Legacy',
-              'construction with extra attr throws exception'}
-else { # Missing message attr
-    throws_ok { $CLASS->new(status => $STATUS)}
-              qr/^Attribute \(message\) is required/,
-              'Construction with missing message attr dies';
-    # Extra attr
-    throws_ok { $CLASS->new(message => $MSG, extra => 'arg')}
-              qr/^Found unknown attribute\(s\)/,
-              'construction with extra attr throws exception'}
+# Missing message attr
+throws_ok { $CLASS->new(status => $STATUS)}
+          qr/^Attribute \(message\) is required/,
+          'Construction with missing message attr dies';
+# Extra attr
+throws_ok { $CLASS->new(message => $MSG, status => $STATUS, extra => 'arg')}
+          qr/^Found unknown attribute\(s\)/,
+          'construction with extra attr throws exception'

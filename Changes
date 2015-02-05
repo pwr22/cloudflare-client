@@ -1,6 +1,7 @@
 Revision history for CloudFlare-Client
 
 {{$NEXT}}
+ - Improve tests
  - Make all POD weaved
  - Rework dist.ini
  - Remove vestigial bovine

@@ -27,10 +27,10 @@ lives_and { new_ok($CLASS => [ message => $MSG])}
     "construction with no EC works";
 # Invalid error code
 throws_ok { $CLASS->new( message => $MSG, errorCode => 'E_NOTSPECD')}
-    'Error::TypeTiny::Assertion',
+    qr/Attribute \(errorCode\) does not pass the type constraint/,
     'construction with invalid EC fails';
 # Missing message attr
-throws_ok { $CLASS->new } qr/^Missing required arguments: message/,
+throws_ok { $CLASS->new } qr/Attribute \(message\) is required/,
     'Construction with missing message attr dies';
 # Extra attr
 throws_ok { $CLASS->new(message => $MSG, extra => 'arg')}
