@@ -1,6 +1,8 @@
 Revision history for CloudFlare-Client
 
 {{$NEXT}}
+
+0.05_2    2015-02-05
  - Drop auto date based prereq versions
  - Add TravisCI testing
  - Improve tests
