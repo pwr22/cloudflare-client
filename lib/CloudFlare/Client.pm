@@ -168,8 +168,6 @@ my ($CF_USER, $CF_KEY);
 
 =head1 SYNOPSIS
 
-Provides an object orientated interface to the CloudFlare client API
-
     use CloudFlare::Client;
 
     my $api = CloudFlare::Client::->new(
@@ -178,12 +176,16 @@ Provides an object orientated interface to the CloudFlare client API
     $api->stats;
     ...
 
-Please see the documentation at
-L<https://www.cloudflare.com/docs/client-api.html> for information the
-CloudFlare client API and its arguments. Optional arguments are passed
-in as a hash with keys as given in the docs
+=head1 OVERVIEW
 
-Successful API calls return the response section from the upstream JSON API. Failures for whatever reason throw exceptions under the CloudFlare::Client::Exception:: namespace
+Please see the documentation at
+L<https://www.cloudflare.com/docs/client-api.html> for information on the
+CloudFlare client API and its arguments. Optional arguments are passed in as a
+hash with keys as given in the docs
+
+Successful API calls return the response section from the upstream JSON
+API. Failures for whatever reason throw exceptions under the
+CloudFlare::Client::Exception:: namespace
 
 =method new
 
@@ -287,11 +289,10 @@ Construct a new API object
 
     $api->recDelete($zone, $recordId)
 
-=head1 BUGS
+=head1 SEE ALSO
 
-Please report any bugs or feature requests to C<bug-cloudflare-client
-at rt.cpan.org>, or through the web interface at
-L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=CloudFlare-Client>
+Mojo::Cloudflare
+WebService::CloudFlare::Host
 
 =head1 ACKNOWLEDGEMENTS
 

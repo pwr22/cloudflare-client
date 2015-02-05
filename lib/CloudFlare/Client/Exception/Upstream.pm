@@ -25,8 +25,6 @@ __END__
 
 =head1 SYNOPSIS
 
-Exception class that propagates errors from the CloudFlare API
-
     use CloudFlare::Client::Exception::Upstream;
 
     CloudFlare::Client::Exception::Upstream::->throw(
@@ -47,7 +45,7 @@ The error message thrown upstream, readonly.
 =attr errorCode
 
 The error code thrown upstream, readonly. Valid values are undef,
-E_UNAUTH, E_INVLDINPUT or E_MAXAPI.
+E_UNAUTH, E_INVLDINPUT or E_MAXAPI. Readonly.
 
 =method throw
 
@@ -71,37 +69,5 @@ Construct a new exception
         message   => 'Bad things happened',
         errorcode => 'E_MAXAPI'
     );
-
-=head1 INHERITANCE
-
-See L<Throwable::Error>
-
-=head1 BUGS
-
-Please report any bugs or feature requests to C<bug-cloudflare-client
-at rt.cpan.org>, or through the web interface at
-L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=CloudFlare-Client>.
-I will be notified, and then you'll automatically be notified of
-progress on your bug as I make changes.
-
-=head1 SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc CloudFlare::Client::Exception::Upstream
-
-You can also look for information at:
-
-=for :list
-* DDFlare
-L<https://bitbucket.org/pwr22/ddflare>
-* RT: CPAN's request tracker (report bugs here)
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=CloudFlare-Client>
-* AnnoCPAN: Annotated CPAN documentation
-L<http://annocpan.org/dist/CloudFlare-Client>
-* CPAN Ratings
-L<http://cpanratings.perl.org/d/CloudFlare-Client>
-* Search CPAN
-L<http://search.cpan.org/dist/CloudFlare-Client/>
 
 =cut

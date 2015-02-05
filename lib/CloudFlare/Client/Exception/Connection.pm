@@ -26,8 +26,6 @@ __END__
 
 =head1 SYNOPSIS
 
-Exception class for failures in the CloudFlare API connection
-
     use CloudFlare::Client::Exception::Connection;
 
     CloudFlare::Client::Exception::Connection::->throw(
@@ -43,11 +41,11 @@ Exception class for failures in the CloudFlare API connection
 
 =attr message
 
-The error message thrown upstream, readonly.
+The error message thrown upstream, readonly
 
 =attr status
 
-The status code for the connection failure
+The status code for the connection failure, readonly
 
 =method throw
 
@@ -71,37 +69,5 @@ Construct a new exception
         message   => 'HTTPS connection failure',
         errorcode => '404'
     );
-
-=head1 INHERITANCE
-
-See L<Throwable::Error>
-
-=head1 BUGS
-
-Please report any bugs or feature requests to C<bug-cloudflare-client
-at rt.cpan.org>, or through the web interface at
-L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=CloudFlare-Client>.
-I will be notified, and then you'll automatically be notified of
-progress on your bug as I make changes.
-
-=head1 SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc CloudFlare::Client::Exception::Upstream
-
-You can also look for information at:
-
-=for :list
-* DDFlare
-L<https://bitbucket.org/pwr22/ddflare>
-* RT: CPAN's request tracker (report bugs here)
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=CloudFlare-Client>
-* AnnoCPAN: Annotated CPAN documentation
-L<http://annocpan.org/dist/CloudFlare-Client>
-* CPAN Ratings
-L<http://cpanratings.perl.org/d/CloudFlare-Client>
-* Search CPAN
-L<http://search.cpan.org/dist/CloudFlare-Client/>
 
 =cut
