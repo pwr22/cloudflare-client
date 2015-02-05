@@ -20,7 +20,7 @@ use CloudFlare::Client::Exception::Upstream;
 use LWP::UserAgent       6.02;
 # This isn't used directly but we want the dependency
 use LWP::Protocol::https 6.02;
-use JSON::Any;
+use JSON::MaybeXS;
 
 # VERSION
 
@@ -65,8 +65,7 @@ method _apiCall($act is ro, %args is ro) {
         message => 'HTTPS request failed')
         unless $res->is_success;
     # Handle errors from CF
-    Readonly my $info =>
-        JSON::Any::->jsonToObj($res->decoded_content);
+    Readonly my $info => decode_json($res->decoded_content);
     CloudFlare::Client::Exception::Upstream::->throw(
         errorCode => $info->{err_code},
         message   => $info->{msg})
