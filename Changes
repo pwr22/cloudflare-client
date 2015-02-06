@@ -1,6 +1,7 @@
 Revision history for CloudFlare-Client
 
 {{$NEXT}}
+ - Optimise "feature" usages
  - Add build branch
  - JSON::Any is deprecated, use JSON::MaybeXS instead
 
