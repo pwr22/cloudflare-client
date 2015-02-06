@@ -1,7 +1,5 @@
 Revision history for CloudFlare-Client
 
-{{$NEXT}}
-
 0.05_3    2015-02-06
  - Optimise "feature" usages
  - Add build branch

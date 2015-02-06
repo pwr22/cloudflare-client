@@ -19,7 +19,7 @@ use LWP::UserAgent       6.02;
 use LWP::Protocol::https 6.02;
 use JSON::MaybeXS;
 
-# VERSION
+our $VERSION = '0.05_3'; # TRIAL VERSION
 
 # CF credentials
 has '_user' => (
@@ -162,8 +162,17 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=for test_synopsis
-my ($CF_USER, $CF_KEY);
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+CloudFlare::Client - Object Orientated Interface to CloudFlare client API
+
+=head1 VERSION
+
+version 0.05_3
 
 =head1 SYNOPSIS
 
@@ -186,7 +195,9 @@ Successful API calls return the response section from the upstream JSON
 API. Failures for whatever reason throw exceptions under the
 CloudFlare::Client::Exception:: namespace
 
-=method new
+=head1 METHODS
+
+=head2 new
 
 Construct a new API object
 
@@ -194,107 +205,182 @@ Construct a new API object
         user   => $CF_USER,
         apikey => $CF_KEY)
 
-=method stats
+=head2 stats
 
     $api->stats($zone, $interval)
 
-=method zoneLoadMulti
+=head2 zoneLoadMulti
 
     $api->zoneLoadMulti
 
-=method recLoadAll
+=head2 recLoadAll
 
     $api->recLoadAll($zone);
 
-=method zoneCheck
+=head2 zoneCheck
 
     $api->zoneCheck(@zones);
 
-=method zoneIps
+=head2 zoneIps
 
     $api->zoneIps($zone, %optionalArgs);
 
-=method ipLkup
+=head2 ipLkup
 
     $api->ipLkup($ip)
 
-=method zoneSettings
+=head2 zoneSettings
 
     $api->zoneSettings($zone)
 
-=method secLvl
+=head2 secLvl
 
     $api->secLvl($zone, $securityLvl)
 
-=method cacheLvl
+=head2 cacheLvl
 
     $api->cacheLvl($zone, $cacheLevel)
 
-=method devMode
+=head2 devMode
 
     $api->devMode($zone, $value)
 
-=method fpurgeTs
+=head2 fpurgeTs
 
     $api->fpurgeTs($zone, $value)
 
-=method zoneFilePurge
+=head2 zoneFilePurge
 
     $api->zoneFilePurge($zone, $url)
 
-=method zoneGrab
+=head2 zoneGrab
 
     $api->zoneGrab($zoneId)
 
-=method wl
+=head2 wl
 
     $api->wl($ip)
 
-=method ban
+=head2 ban
 
     $api->ban($ip)
 
-=method nul
+=head2 nul
 
     $api->nul($ip)
 
-=method ipv46
+=head2 ipv46
 
     $api->ipv46($zone, $value)
 
-=method async
+=head2 async
 
     $api->async($zone, $value)
 
-=method minify
+=head2 minify
 
     $api->minify($zone, $value)
 
-=method mirage2
+=head2 mirage2
 
     $api->mirage2($zone, $value)
 
-=method recNew
+=head2 recNew
 
     $api->recNew($zone, $type, $name
                  $content, $ttl, %optionalArgs)
 
-=method recEdit
+=head2 recEdit
 
     $api->recEdit($zone, $type, $recordId, $name
                   $content, $ttl, %optionalArgs)
 
-=method recDelete
+=head2 recDelete
 
     $api->recDelete($zone, $recordId)
 
+=for test_synopsis my ($CF_USER, $CF_KEY);
+
 =head1 SEE ALSO
 
-Mojo::Cloudflare
-WebService::CloudFlare::Host
+Please see those modules/websites for more information related to this module.
+
+=over 4
+
+=item *
+
+L<Mojo::Cloudflare|Mojo::Cloudflare>
+
+=item *
+
+L<WebService::CloudFlare::Host|WebService::CloudFlare::Host>
+
+=back
+
+=for :stopwords cpan testmatrix url annocpan anno bugtracker rt cpants kwalitee diff irc mailto metadata placeholders metacpan
+
+=head1 SUPPORT
+
+=head2 Perldoc
+
+You can find documentation for this module with the perldoc command.
+
+  perldoc CloudFlare::Client
+
+=head2 Websites
+
+The following websites have more information about this module, and may be of help to you. As always,
+in addition to those websites please use your favorite search engine to discover more resources.
+
+=over 4
+
+=item *
+
+MetaCPAN
+
+A modern, open-source CPAN search engine, useful to view POD in HTML format.
+
+L<http://metacpan.org/release/CloudFlare-Client>
+
+=back
+
+=head2 Email
+
+You can email the author of this module at C<me+dev@peter-r.co.uk> asking for help with any problems you have.
+
+=head2 Source Code
+
+The code is open to the world, and available for you to hack on. Please feel free to browse it and play
+with it, or whatever. If you want to contribute patches, please send me a diff or prod me to pull
+from your repository :)
+
+L<https://github.com/pwr22/cloudflare-client>
+
+  git clone git://github.com/pwr22/cloudflare-client.git
+
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+https://github.com/pwr22/cloudflare-client/issues
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
 
 =head1 ACKNOWLEDGEMENTS
 
 Thanks to CloudFlare providing an awesome free service with an API.
+
+=head1 AUTHOR
+
+Peter Roberts <me+dev@peter-r.co.uk>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2015 by Peter Roberts.
+
+This is free software, licensed under:
+
+  The MIT (X11) License
 
 =cut
