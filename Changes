@@ -1,6 +1,8 @@
 Revision history for CloudFlare-Client
 
 {{$NEXT}}
+ - Change release tag format and travis stuff
+ - Test::RequiresInternet for upstream existence check
  - Handle test dependencies better
 
 0.05_3    2015-02-06
