@@ -1,0 +1,53 @@
+---
+abstract: 'Object Orientated Interface to CloudFlare client API'
+author:
+  - 'Peter Roberts <me+dev@peter-r.co.uk>'
+build_requires:
+  HTTP::Message: '0'
+  IPC::System::Simple: '0'
+  JSON::Any: '0'
+  Moose: '0'
+  Test::CPAN::Meta::JSON: '0'
+  Test::Exception: '0'
+  Test::LWP::UserAgent: '0'
+  Test::RequiresInternet: '0'
+  Try::Tiny: '0'
+  Type::Tiny: 0.039_12
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 5.031, CPAN::Meta::Converter version 2.143240'
+license: mit
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: '1.4'
+name: CloudFlare-Client
+provides:
+  CloudFlare::Client:
+    file: lib/CloudFlare/Client.pm
+    version: 0.05_4
+  CloudFlare::Client::Exception::Connection:
+    file: lib/CloudFlare/Client/Exception/Connection.pm
+    version: 0.05_4
+  CloudFlare::Client::Exception::Upstream:
+    file: lib/CloudFlare/Client/Exception/Upstream.pm
+    version: 0.05_4
+  CloudFlare::Client::Types:
+    file: lib/CloudFlare/Client/Types.pm
+    version: 0.05_4
+requires:
+  JSON::MaybeXS: '0'
+  Kavorka: '0'
+  LWP::Protocol::https: '6.02'
+  LWP::UserAgent: '6.02'
+  Moose: '0'
+  MooseX::StrictConstructor: '0'
+  Readonly: '0'
+  Throwable: '0'
+  Type::Tiny: 0.039_12
+  indirect: '0'
+  namespace::autoclean: '0'
+  perl: '5.014'
+resources:
+  bugtracker: https://github.com/pwr22/cloudflare-client/issues
+  homepage: https://metacpan.org/pod/CloudFlare::Client
+  repository: git://github.com/pwr22/cloudflare-client.git
+version: 0.05_4
