@@ -47,7 +47,7 @@ has '_ua' => (
 # Calls through to the CF API, can throw exceptions under ::Exception::
 Readonly my $CF_URL =>
     'https://www.cloudflare.com/api_json.html';
-method _apiCall($act is ro, %args is ro) {
+method _apiCall ( $act is ro, %args is ro) {
     # query cloudflare
     Readonly my $res => $self->_ua->post($CF_URL, {
         %args,
@@ -70,92 +70,12 @@ method _apiCall($act is ro, %args is ro) {
 
     return $info->{response}}
 
-# Methods
-method stats($zone  is ro, $itrvl is ro) {
-    return $self->_apiCall('stats', z => $zone, interval => $itrvl)}
-
-method zoneLoadMulti () {
-    return $self->_apiCall('zone_load_multi')}
-
-method recLoadAll($zone is ro) {
-    return $self->_apiCall('rec_load_all', z => $zone)}
-
-# Requires at least one zone, but can take any number
-method zoneCheck($fZone is ro, @rZones is ro) {
-    return $self->_apiCall('zone_check', zones => join ',', $fZone, @rZones)}
-
-method zoneIps($zone is ro, %args is ro) {
-    return $self->_apiCall('zone_ips', %args,
-                           # Override user specified
-                           z     => $zone)}
-
-method ipLkup($ip is ro) {
-    return $self->_apiCall('ip_lkup', ip => $ip)}
-
-method zoneSettings($zone is ro) {
-    return $self->_apiCall('zone_settings', z => $zone)}
-
-method secLvl($zone is ro, $secLvl is ro) {
-    return $self->_apiCall('sec_lvl', z => $zone, v => $secLvl);
+sub AUTOLOAD {
+    our $AUTOLOAD;
+    my $self = shift;
+    my $act  = $AUTOLOAD =~ s/.*:://r;
+    return $self->_apiCall( $act, @_ );
 }
-
-method cacheLvl($zone is ro, $cchLvl is ro) {
-    return $self->_apiCall('cache_lvl', z => $zone, v => $cchLvl)}
-
-method devMode($zone is ro, $val is ro) {
-    return $self->_apiCall('devmode', z => $zone, v => $val)}
-
-method fpurgeTs($zone is ro, $val is ro) {
-    return $self->_apiCall('fpurge_ts', z => $zone, v => $val)}
-
-method zoneFilePurge($zone is ro, $url is ro) {
-    return $self->_apiCall('zone_file_purge', z => $zone, url => $url)}
-
-method zoneGrab($zId is ro) {
-    return $self->_apiCall('zone_grab', zid => $zId)}
-
-method _wlBanNul($act is ro, $ip is ro) {
-    return $self->_apiCall($act, key => $ip)}
-
-method wl($ip is ro) {
-    return $self->_wlBanNul('wl', $ip)}
-
-method ban($ip is ro) {
-    return $self->_wlBanNul('ban', $ip)}
-
-method nul($ip is ro) {
-    return $self->_wlBanNul('nul', $ip)}
-
-method ipv46($zone is ro, $val is ro) {
-    return $self->_apiCall('ipv46', z => $zone, v => $val)}
-
-method async($zone is ro, $val is ro) {
-    return $self->_apiCall('async', z => $zone, v => $val)}
-
-method minify($zone is ro, $val is ro) {
-    return $self->_apiCall('async', z => $zone, v => $val)}
-
-method mirage2($zone is ro, $val is ro) {
-    return $self->_apiCall('mirage2', z => $zone, v => $val)}
-
-method recNew($zone is ro, $type is ro, $name is ro, $cntnt is ro,
-              $ttl is ro, %args is ro) {
-    return $self->_apiCall('rec_new',
-                           %args,
-                           # Override user specified
-                           z => $zone, type => $type, name => $name,
-                           content => $cntnt, ttl => $ttl)}
-
-method recEdit($zone is ro, $type is ro, $id is ro, $name is ro, $cntnt is ro,
-               $ttl is ro, %args  is ro) {
-    return $self->_apiCall('rec_edit',
-                           %args,
-                           # override user specified
-                           z => $zone, type => $type, id => $id, name => $name,
-                           content => $cntnt, ttl => $ttl)}
-
-method recDelete($zone is ro, $id is ro) {
-    return $self->_apiCall('rec_delete', z => $zone, id => $id)}
 
 __PACKAGE__->meta->make_immutable;
 1; # End of CloudFlare::Client
