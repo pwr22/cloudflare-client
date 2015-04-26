@@ -30,22 +30,18 @@ $CNT_RSP->content(JSON::Any::->objToJson($CNT_DATA));
 # It will always return the valid response $CNT_RSP
 sub _buildUa {
     Readonly my $ua => Test::LWP::UserAgent::->new;
-    $ua->map_response(qr{www.cloudflare.com/api_json.html},
-                      $CNT_RSP);
-    $ua}
+    $ua->map_response( qr{www.cloudflare.com/api_json.html},
+                       $CNT_RSP);
+    return $ua;}
 __PACKAGE__->meta->make_immutable;
 
 # Catch potential failure
 Readonly my $API => try {
-    CloudFlare::Client::Test::->new( user    => 'user', apikey  => 'KEY')}
+        CloudFlare::Client::Test::->new( user => 'user', apikey => 'KEY')}
     catch { diag $_ };
 # Valid values
 Readonly my $ZONE  => 'zone.co.uk';
 Readonly my $ITRVL => 20;
-# method => [{ key => args }, ...]
-Readonly my %tstSpec => (
-    stats         => [{ z => $ZONE, interval => $ITRVL}]);
-for my $method ( sort keys %tstSpec ) {
-    for my $args (@{ $tstSpec{$method} }) {
-        lives_and { is_deeply($API->$method(%$args), $RSP_PL) }
-            "$method works"}}
+lives_and { is_deeply $API->action( zone => $ZONE, interval => $ITRVL),
+                      $RSP_PL}
+          "action works";

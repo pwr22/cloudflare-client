@@ -15,7 +15,7 @@ extends 'Throwable::Error';
 has status => (
     is       => 'ro',
     isa      => Str,
-    required => 1);
+    required => 1,);
 
 __PACKAGE__->meta->make_immutable;
 1; # End of CloudFlare::Client::Exception::Connection
@@ -28,12 +28,12 @@ __END__
 
     CloudFlare::Client::Exception::Connection::->throw(
         message   => 'HTTPS connection failure',
-        status    => '404'
+        status    => '404',
     );
 
     my $e = CloudFlare::Client::Exception::Connection::->new(
         message   => 'HTTPS connection failure',
-        status    => '404'
+        status    => '404',
     );
     $e->throw;
 
@@ -51,7 +51,7 @@ On the class, throw a new exception
 
     CloudFlare::Client::Exception::Connection::->throw(
         message   => 'HTTPS connection failure',
-        status    => '404'
+        status    => '404',
     );
     ...
 
@@ -65,7 +65,7 @@ Construct a new exception
 
     my $e = CloudFlare::Client::Exception::Connection::->throw(
         message   => 'HTTPS connection failure',
-        errorcode => '404'
+        errorcode => '404',
     );
 
 =cut

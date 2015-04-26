@@ -14,7 +14,7 @@ extends 'Throwable::Error';
 
 has errorCode => (
     is       => 'ro',
-    isa      => ErrorCode);
+    isa      => ErrorCode,);
 
 __PACKAGE__->meta->make_immutable;
 1; # End of CloudFlare::Client::Exception::Upstream
@@ -27,23 +27,23 @@ __END__
 
     CloudFlare::Client::Exception::Upstream::->throw(
         message   => 'Bad things occured',
-        errorCode => 'E_MAXAPI'
+        errorCode => 'E_MAXAPI',
     );
 
     my $e = CloudFlare::Client::Exception::Upstream::->new(
         message   => 'Bad things happened',
-        errorcode => 'E_MAXAPI'
+        errorcode => 'E_MAXAPI',
     );
     $e->throw;
 
 =attr message
 
-The error message thrown upstream, readonly.
+The error message thrown upstream, readonly
 
 =attr errorCode
 
 The error code thrown upstream, readonly. Valid values are undef,
-E_UNAUTH, E_INVLDINPUT or E_MAXAPI. Readonly.
+E_UNAUTH, E_INVLDINPUT or E_MAXAPI. Readonly
 
 =method throw
 
@@ -51,7 +51,7 @@ On the class, throw a new exception
 
     CloudFlare::Client::Exception::Upstream::->throw(
         message   => 'Bad things occured',
-        errorCode => 'E_MAXAPI'
+        errorCode => 'E_MAXAPI',
     );
     ...
 
@@ -65,7 +65,7 @@ Construct a new exception
 
     my $e = CloudFlare::Client::Exception::Upstream::->new(
         message   => 'Bad things happened',
-        errorcode => 'E_MAXAPI'
+        errorcode => 'E_MAXAPI',
     );
 
 =cut

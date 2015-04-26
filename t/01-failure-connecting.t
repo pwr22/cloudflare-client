@@ -27,11 +27,11 @@ __PACKAGE__->meta->make_immutable;
 # Test upstream failures
 # Catch potential failure
 Readonly my $API => try {
-    CloudFlare::Client::Test::->new( user => 'user', apikey  => 'KEY')}
+        CloudFlare::Client::Test::->new( user => 'user', apikey  => 'KEY')}
     catch { diag $_ };
 # Valid values
-Readonly my $ZONE         => 'zone.co.uk';
-Readonly my $ITRVL        => 20;
+Readonly my $ZONE  => 'zone.co.uk';
+Readonly my $ITRVL => 20;
 throws_ok { $API->action( z => $ZONE, interval => $ITRVL )}
           'CloudFlare::Client::Exception::Connection',
           "methods die with a connection error";
