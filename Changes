@@ -1,7 +1,5 @@
 Revision history for CloudFlare-Client
 
-{{$NEXT}}
-
 0.05_5    2015-04-27
  - use docker containers in TravisCI
  - update test targets in TravisCI
