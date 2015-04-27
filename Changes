@@ -1,6 +1,12 @@
 Revision history for CloudFlare-Client
 
 {{$NEXT}}
+ - use docker containers in TravisCI
+ - update test targets in TravisCI
+ - start providing a cpanfile
+ - BREAKING: switch to AUTOLOAD dispatch with all arguments as a hash
+ - tidy code into my latest coding style
+ - no longer clean up pre-reqs list
 
 0.05_4    2015-02-07
  - Change release tag format and travis stuff
