@@ -1,6 +1,7 @@
 Revision history for CloudFlare-Client
 
 {{$NEXT}}
+ - fix auto git tagging on release
 
 v0.55.1   2015-04-30
  - switch to a V-string
