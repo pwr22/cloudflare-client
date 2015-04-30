@@ -1,6 +1,8 @@
 Revision history for CloudFlare-Client
 
 {{$NEXT}}
+
+v0.55.1   2015-04-30
  - switch to a V-string
 
 0.05_5    2015-04-27
