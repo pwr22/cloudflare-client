@@ -1,6 +1,8 @@
 Revision history for CloudFlare-Client
 
 {{$NEXT}}
+
+v0.55.3   2015-05-01
  - really fix auto tagging...
 
 v0.55.2   2015-04-30
