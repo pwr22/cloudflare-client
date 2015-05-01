@@ -1,6 +1,7 @@
 Revision history for CloudFlare-Client
 
 {{$NEXT}}
+ - really fix auto tagging...
 
 v0.55.2   2015-04-30
  - fix auto git tagging on release
