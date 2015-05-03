@@ -70,9 +70,8 @@ method _apiCall ( $act is ro, %args is ro ) {
     return $info->{response};}
 
 # all API calls are implemented through autoloading, the action is the method
-sub AUTOLOAD {
+method AUTOLOAD {
     our $AUTOLOAD;
-    my $self = shift;
     # pull action out of f.q. method name
     my $act  = $AUTOLOAD =~ s/.*:://r;
     return $self->_apiCall( $act, @_ );}

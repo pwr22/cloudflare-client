@@ -1,6 +1,7 @@
 Revision history for CloudFlare-Client
 
 {{$NEXT}}
+ - tweaks
  - fix commit message
  - test all the perls in Travis
 
