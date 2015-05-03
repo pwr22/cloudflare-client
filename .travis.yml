@@ -16,16 +16,21 @@ perl:
    - 5.20.0
    - 5.20.1
    - 5.20.2
-   - '5.21'
+   - dev
+   - 'blead'
 env:
    - BUILD=0
    - BUILD=1
 matrix:
    allow_failures:
       - env: BUILD=0
-        perl: '5.21'
+        perl: dev
+      - env: BUILD=0
+        perl: 'blead'
       - env: BUILD=1
-        perl: '5.21'
+        perl: dev
+      - env: BUILD=1
+        perl: 'blead'
    fast_finish: true
 before_install:
    - 'if [[ $BUILD == 1 && ! -d .build/testing ]]; then unset BUILD; fi'
