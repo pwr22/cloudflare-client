@@ -81,8 +81,7 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=for test_synopsis
-my ( $CF_USER, $CF_KEY, $ZONE, $INTERVAL);
+=for test_synopsis my ( $CF_USER, $CF_KEY, $ZONE, $INTERVAL);
 
 =head1 SYNOPSIS
 
