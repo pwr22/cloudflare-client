@@ -4,6 +4,7 @@ Revision history for CloudFlare-Client
  - tweaks
  - fix commit message
  - test all the perls in Travis
+ - change weaver.ini to work with changes to Test::Synopsis
 
 v0.55.3   2015-05-01
  - really fix auto tagging...
