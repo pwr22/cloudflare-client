@@ -1,7 +1,5 @@
 Revision history for CloudFlare-Client
 
-{{$NEXT}}
-
 v0.55.5   2016-03-27
  - Travis build on previous release failed on build branch due to
    issues in [TravisYML]. Making another release to test fixes with
