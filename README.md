@@ -1,5 +1,7 @@
 # CloudFlare::Client [![Build Status](https://travis-ci.org/pwr22/cloudflare-client.svg?branch=master)](https://travis-ci.org/pwr22/cloudflare-client)
 
+Testing @pwr22 @sineswiper
+
 Perl module providing an object orientated interface to CloudFlare's client API
 
 ## Documentation
