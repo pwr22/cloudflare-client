@@ -14,49 +14,16 @@ perl:
    - '5.22'
    - 'dev'
    - 'blead'
+env:
+  - COVERAGE=1
 matrix:
-  include:
-    - perl: '5.8'
-      env: COVERAGE=1   # enables coverage+coveralls reporting
-    - perl: '5.10'
-      env: COVERAGE=1   # enables coverage+coveralls reporting
-    - perl: '5.12'
-      env: COVERAGE=1   # enables coverage+coveralls reporting
-    - perl: '5.14'
-      env: COVERAGE=1   # enables coverage+coveralls reporting
-    - perl: '5.16'
-      env: COVERAGE=1   # enables coverage+coveralls reporting  
-    - perl: '5.18'
-      env: COVERAGE=1   # enables coverage+coveralls reporting
-    - perl: '5.20'
-      env: COVERAGE=1   # enables coverage+coveralls reporting
-    - perl: '5.22'
-      env: COVERAGE=1   # enables coverage+coveralls reporting
-    - perl: '5.24'
-      env: COVERAGE=1   # enables coverage+coveralls reporting
-    - perl: '5.26'
-      env: COVERAGE=1   # enables coverage+coveralls reporting
   allow_failures:
-    - perl: dev
-    - perl: blead
+    - perl: 'dev'
+    - perl: 'blead'
     # Kavorka needs 5.14
     - perl: '5.8'
     - perl: '5.10'
     - perl: '5.12'
-    - perl: '5.14'
-      env: COVERAGE=1
-    - perl: '5.16'
-      env: COVERAGE=1
-    - perl: '5.18'
-      env: COVERAGE=1
-    - perl: '5.20'
-      env: COVERAGE=1
-    - perl: '5.22'
-      env: COVERAGE=1
-    - perl: '5.24'
-      env: COVERAGE=1
-    - perl: '5.26'
-      env: COVERAGE=1
   fast_finish: true
 before_install:
   - eval $(curl https://travis-perl.github.io/init) --auto
