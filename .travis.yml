@@ -13,11 +13,15 @@ perl:
    - 'blead'
 matrix:
   include:
-    - perl: 5.18
+    - perl: '5.18'
       env: COVERAGE=1   # enables coverage+coveralls reporting
   allow_failures:
     - perl: dev
     - perl: blead
+    # Kavorka needs 5.14
+    - perl: '5.8'
+    - perl: '5.10'
+    - perl: '5.12'
   fast_finish: true
 before_install:
   - eval $(curl https://travis-perl.github.io/init) --auto
