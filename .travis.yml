@@ -14,8 +14,8 @@ perl:
    - '5.22'
    - 'dev'
    - 'blead'
-env:
-  - COVERAGE=1
+#env:
+#  - COVERAGE=1
 matrix:
   allow_failures:
     - perl: 'dev'
