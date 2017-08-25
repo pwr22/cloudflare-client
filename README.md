@@ -1,4 +1,4 @@
-# CloudFlare::Client [![Build Status](https://travis-ci.org/pwr22/cloudflare-client.svg?branch=master)](https://travis-ci.org/pwr22/cloudflare-client)
+# CloudFlare::Client [![Build Status](https://travis-ci.org/pwr22/cloudflare-client.svg?branch=master)](https://travis-ci.org/pwr22/cloudflare-client) [![Coverage Status](https://coveralls.io/repos/github/pwr22/cloudflare-client/badge.svg?branch=master)](https://coveralls.io/github/pwr22/cloudflare-client?branch=master)
 
 Perl module providing an object orientated interface to CloudFlare's client API
 
