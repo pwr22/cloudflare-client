@@ -22,10 +22,6 @@ matrix:
   allow_failures:
     - perl: 'dev'
     - perl: 'blead'
-    # Kavorka needs 5.14
-    - perl: '5.8'
-    - perl: '5.10'
-    - perl: '5.12'
   fast_finish: true
 before_install:
   - git clone git://github.com/travis-perl/helpers ~/travis-perl-helpers
