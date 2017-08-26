@@ -1,8 +1,6 @@
 package CloudFlare::Client;
 # ABSTRACT: Object Orientated Interface to CloudFlare client API
 
-# Or Kavorka will explode
-use 5.014;
 use strict; use warnings; no indirect 'fatal'; use namespace::autoclean;
 use mro 'c3';
 
@@ -10,7 +8,6 @@ use Readonly;
 use Moose; use MooseX::StrictConstructor;
 use Types::Standard           'Str';
 use CloudFlare::Client::Types 'LWPUserAgent';
-use Kavorka;
 
 use CloudFlare::Client::Exception::Connection;
 use CloudFlare::Client::Exception::Upstream;
@@ -46,7 +43,9 @@ has '_ua' => (
 
 # Calls through to the CF API, can throw exceptions under ::Exception::
 Readonly my $CF_URL => 'https://www.cloudflare.com/api_json.html';
-method _apiCall ( $act is ro, %args is ro ) {
+sub _apiCall {
+    my ($self, $act, %args) = @_;
+
     # query cloudflare
     Readonly my $res => $self->_ua->post( $CF_URL, {
         %args,
@@ -70,7 +69,9 @@ method _apiCall ( $act is ro, %args is ro ) {
     return $info->{response};}
 
 # all API calls are implemented through autoloading, the action is the method
-method AUTOLOAD {
+sub AUTOLOAD {
+    my $self = shift;
+
     our $AUTOLOAD;
     # pull action out of f.q. method name
     my $act  = $AUTOLOAD =~ s/.*:://r;
