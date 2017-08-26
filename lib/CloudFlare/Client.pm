@@ -6,13 +6,12 @@ use strict;
 use warnings;
 no indirect 'fatal';
 use namespace::autoclean;
-
+use Carp;
 use Readonly;
 use Moose;
 use MooseX::StrictConstructor;
 use Types::Standard 'Str';
 
-use CloudFlare::Client::Exception::Connection;
 use CloudFlare::Client::Exception::Upstream;
 use LWP::UserAgent 6.02;
 
@@ -71,11 +70,7 @@ sub _apiCall {
         }
     );
 
-    # Handle connection errors
-    CloudFlare::Client::Exception::Connection::->throw(
-        status  => $res->status_line,
-        message => 'HTTPS request failed',
-    ) unless $res->is_success;
+    croak 'HTTP request failed with status ' . $res->status_line unless $res->is_success;
 
     # Handle errors from CF
     Readonly my $info => decode_json( $res->decoded_content );
