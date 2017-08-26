@@ -34,12 +34,12 @@ before_install:
   - perl --version
 
   - dzil authordeps | xargs /tmp/cpm install -gw${SYSTEM_CORES} # What do we need for dist build
-  - dzil build --in /tmp/build
+  - dzil build --in build
 
   - build-perl # Get the perl we want to test
   - perl --version
 
-  - cd /tmp/build # Be ready
+  - cd build # Be ready
 install:
   - /tmp/cpm install -gw${SYSTEM_CORES} --with-recommends --with-develop
   - cpan-install --coverage   # installs converage prereqs, if enabled
