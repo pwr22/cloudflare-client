@@ -103,7 +103,7 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=for test_synopsis my ( $CF_USER, $CF_KEY, $ZONE, $INTERVAL);
+=for test_synopsis my ( $CF_USER, $CF_KEY, $ZONE, $INTERVAL );
 
 =head1 SYNOPSIS
 
@@ -111,8 +111,10 @@ __END__
 
     my $api = CloudFlare::Client::->new(
         user   => $CF_USER,
-        apikey => $CF_KEY,);
-    $api->stats( z => $ZONE, interval => $INTERVAL);
+        apikey => $CF_KEY
+    );
+    
+    $api->stats( z => $ZONE, interval => $INTERVAL );
     ...
 
 =head1 OVERVIEW
@@ -133,7 +135,8 @@ Construct a new API object
 
     my $api = CloudFlare::Client::->new(
         user   => $CF_USER,
-        apikey => $CF_KEY);
+        apikey => $CF_KEY,
+    );
 
 =head1 SEE ALSO
 

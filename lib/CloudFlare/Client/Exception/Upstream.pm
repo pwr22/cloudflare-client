@@ -30,15 +30,16 @@ __END__
 
     use CloudFlare::Client::Exception::Upstream;
 
-    CloudFlare::Client::Exception::Upstream::->throw(
+    CloudFlare::Client::Exception::Upstream->throw(
         message   => 'Bad things occured',
         errorCode => 'E_MAXAPI',
     );
 
-    my $e = CloudFlare::Client::Exception::Upstream::->new(
+    my $e = CloudFlare::Client::Exception::Upstream->new(
         message   => 'Bad things happened',
         errorcode => 'E_MAXAPI',
     );
+    
     $e->throw;
 
 =attr message
@@ -54,7 +55,7 @@ E_UNAUTH, E_INVLDINPUT or E_MAXAPI. Readonly
 
 On the class, throw a new exception
 
-    CloudFlare::Client::Exception::Upstream::->throw(
+    CloudFlare::Client::Exception::Upstream->throw(
         message   => 'Bad things occured',
         errorCode => 'E_MAXAPI',
     );
@@ -68,7 +69,7 @@ On an instance, throw that exception
 
 Construct a new exception
 
-    my $e = CloudFlare::Client::Exception::Upstream::->new(
+    my $e = CloudFlare::Client::Exception::Upstream->new(
         message   => 'Bad things happened',
         errorcode => 'E_MAXAPI',
     );

@@ -31,12 +31,12 @@ __END__
 
     use CloudFlare::Client::Exception::Connection;
 
-    CloudFlare::Client::Exception::Connection::->throw(
+    CloudFlare::Client::Exception::Connection->throw(
         message   => 'HTTPS connection failure',
         status    => '404',
     );
 
-    my $e = CloudFlare::Client::Exception::Connection::->new(
+    my $e = CloudFlare::Client::Exception::Connection->new(
         message   => 'HTTPS connection failure',
         status    => '404',
     );
@@ -54,7 +54,7 @@ The status code for the connection failure, readonly
 
 On the class, throw a new exception
 
-    CloudFlare::Client::Exception::Connection::->throw(
+    CloudFlare::Client::Exception::Connection->throw(
         message   => 'HTTPS connection failure',
         status    => '404',
     );
@@ -68,7 +68,7 @@ On an instance, throw that exception
 
 Construct a new exception
 
-    my $e = CloudFlare::Client::Exception::Connection::->throw(
+    my $e = CloudFlare::Client::Exception::Connection->throw(
         message   => 'HTTPS connection failure',
         errorcode => '404',
     );
