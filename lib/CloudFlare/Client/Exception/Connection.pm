@@ -2,7 +2,6 @@ package CloudFlare::Client::Exception::Connection;
 # ABSTRACT: CloudFlare API Connection Exception
 
 use strict; use warnings; no indirect 'fatal'; use namespace::autoclean;
-use mro 'c3';
 
 use Readonly;
 use Moose; use MooseX::StrictConstructor;

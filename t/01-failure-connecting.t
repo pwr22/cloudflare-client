@@ -5,7 +5,6 @@
 package CloudFlare::Client::Test;
 
 use strict; use warnings; no indirect 'fatal'; use namespace::autoclean;
-use mro 'c3';
 
 use Readonly;
 use Try::Tiny;

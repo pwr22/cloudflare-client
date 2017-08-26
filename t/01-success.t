@@ -3,7 +3,7 @@
 # This file aims to test the correct functioning of all API calls
 package CloudFlare::Client::Test;
 
-use strict; use warnings; use mro 'c3'; use namespace::autoclean;
+use strict; use warnings; use namespace::autoclean;
 
 use Readonly;
 use Try::Tiny;
