@@ -7,6 +7,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
+use Const::Fast;
 use Readonly;
 use Try::Tiny;
 use Moose;
@@ -16,7 +17,7 @@ use Test::More;
 use Test::Exception;
 use Test::LWP::UserAgent;
 use HTTP::Response;
-use JSON::Any;
+use JSON::MaybeXS;
 
 plan tests => 1;
 
@@ -27,11 +28,11 @@ extends 'CloudFlare::Client';
 Readonly my $RSP_PL => { val => 1 };
 
 # Full response
-Readonly my $CNT_DATA => { result => 'success', response => $RSP_PL };
+const my $CNT_DATA => { result => 'success', response => $RSP_PL };
 
 # Reponse from server
 Readonly my $CNT_RSP => HTTP::Response::->new(200);
-$CNT_RSP->content( JSON::Any::->objToJson($CNT_DATA) );
+$CNT_RSP->content( encode_json($CNT_DATA) );
 
 # Override the real user agent with a mocked one
 # It will always return the valid response $CNT_RSP
