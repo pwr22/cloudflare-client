@@ -11,7 +11,6 @@ use Readonly;
 use Moose;
 use MooseX::StrictConstructor;
 use Types::Standard 'Str';
-use CloudFlare::Client::Types 'LWPUserAgent';
 
 use CloudFlare::Client::Exception::Connection;
 use CloudFlare::Client::Exception::Upstream;
@@ -41,13 +40,13 @@ has '_key' => (
 Readonly my $UA_STRING => "CloudFlare::Client/$CloudFlare::Client::VERSION";
 
 sub _buildUa {
-    Readonly my $ua => LWP::UserAgent::->new;
+    Readonly my $ua => LWP::UserAgent->new;
     $ua->agent($UA_STRING);
     return $ua;
 }
 has '_ua' => (
     is       => 'ro',
-    isa      => LWPUserAgent,
+    isa      => 'LWP::UserAgent',
     init_arg => undef,
     builder  => '_buildUa',
 );

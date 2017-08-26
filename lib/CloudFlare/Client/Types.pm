@@ -16,7 +16,6 @@ use Readonly;
 
 # VERSION
 
-class_type 'LWP::UserAgent';
 declare CFCode,    as Enum  [qw( E_UNAUTH E_INVLDINPUT E_MAXAPI)];
 declare ErrorCode, as Maybe [CFCode];
 
