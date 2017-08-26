@@ -58,7 +58,6 @@ On the class, throw a new exception
         message   => 'HTTPS connection failure',
         status    => '404',
     );
-    ...
 
 On an instance, throw that exception
 

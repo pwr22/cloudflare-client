@@ -59,7 +59,6 @@ On the class, throw a new exception
         message   => 'Bad things occured',
         errorCode => 'E_MAXAPI',
     );
-    ...
 
 On an instance, throw that exception
 

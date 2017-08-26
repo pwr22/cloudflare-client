@@ -116,7 +116,6 @@ __END__
     );
 
     $api->stats( z => $ZONE, interval => $INTERVAL );
-    ...
 
 =head1 OVERVIEW
 
