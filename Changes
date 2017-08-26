@@ -1,6 +1,7 @@
 Revision history for CloudFlare-Client
 
 {{$NEXT}}
+ - Throw string exceptions instead of objects (objects are overkill here)
  - Remove JSON::Any from tests
 
 v0.55.5   2016-03-27
