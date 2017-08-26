@@ -12,11 +12,8 @@ use Moose;
 use MooseX::StrictConstructor;
 use Types::Standard 'Str';
 
-use CloudFlare::Client::Exception::Upstream;
 use LWP::UserAgent 6.02;
-
-# This isn't used directly but we want the dependency
-use LWP::Protocol::https 6.02;
+use LWP::Protocol::https 6.02;    # Not used but we want the dependency
 use JSON::MaybeXS;
 
 # VERSION
@@ -36,7 +33,7 @@ has '_key' => (
     init_arg => 'apikey',
 );
 
-Readonly my $UA_STRING => "CloudFlare::Client/$CloudFlare::Client::VERSION";
+Readonly my $UA_STRING => "CloudFlare::Client/$VERSION";
 
 sub _buildUa {
     Readonly my $ua => LWP::UserAgent->new;
@@ -70,14 +67,19 @@ sub _apiCall {
         }
     );
 
-    croak 'HTTP request failed with status ' . $res->status_line unless $res->is_success;
+    croak 'HTTP request failed with status ' . $res->status_line
+      unless $res->is_success;
 
-    # Handle errors from CF
-    Readonly my $info => decode_json( $res->decoded_content );
-    CloudFlare::Client::Exception::Upstream::->throw(
-        errorCode => $info->{err_code},
-        message   => $info->{msg},
-    ) unless $info->{result} eq 'success';
+    my $info = decode_json( $res->decoded_content );
+
+    unless ( $info->{result} eq 'success' ) {
+        my $err_code_info =
+          defined( $info->{err_code} )
+          ? "code $info->{err_code}"
+          : 'no error code';
+
+        croak "API errored with $err_code_info and message $info->{msg}";
+    }
 
     return $info->{response};
 }

@@ -24,5 +24,4 @@ throws_ok {
     # Picked because takes no args
     $api->zoneLoadMulti
 }
-'CloudFlare::Client::Exception::Upstream',
-  'Upstream service exists and responds';
+qr/API errored with/, 'Upstream service exists and responds';
