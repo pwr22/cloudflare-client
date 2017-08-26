@@ -1,11 +1,15 @@
 package CloudFlare::Client::Exception::Connection;
+
 # ABSTRACT: CloudFlare API Connection Exception
 
-use strict; use warnings; no indirect 'fatal'; use namespace::autoclean;
-use mro 'c3';
+use strict;
+use warnings;
+no indirect 'fatal';
+use namespace::autoclean;
 
 use Readonly;
-use Moose; use MooseX::StrictConstructor;
+use Moose;
+use MooseX::StrictConstructor;
 use Types::Standard 'Str';
 
 # VERSION
@@ -15,10 +19,11 @@ extends 'Throwable::Error';
 has status => (
     is       => 'ro',
     isa      => Str,
-    required => 1,);
+    required => 1,
+);
 
 __PACKAGE__->meta->make_immutable;
-1; # End of CloudFlare::Client::Exception::Connection
+1;    # End of CloudFlare::Client::Exception::Connection
 
 __END__
 
@@ -26,12 +31,12 @@ __END__
 
     use CloudFlare::Client::Exception::Connection;
 
-    CloudFlare::Client::Exception::Connection::->throw(
+    CloudFlare::Client::Exception::Connection->throw(
         message   => 'HTTPS connection failure',
         status    => '404',
     );
 
-    my $e = CloudFlare::Client::Exception::Connection::->new(
+    my $e = CloudFlare::Client::Exception::Connection->new(
         message   => 'HTTPS connection failure',
         status    => '404',
     );
@@ -49,11 +54,10 @@ The status code for the connection failure, readonly
 
 On the class, throw a new exception
 
-    CloudFlare::Client::Exception::Connection::->throw(
+    CloudFlare::Client::Exception::Connection->throw(
         message   => 'HTTPS connection failure',
         status    => '404',
     );
-    ...
 
 On an instance, throw that exception
 
@@ -63,7 +67,7 @@ On an instance, throw that exception
 
 Construct a new exception
 
-    my $e = CloudFlare::Client::Exception::Connection::->throw(
+    my $e = CloudFlare::Client::Exception::Connection->throw(
         message   => 'HTTPS connection failure',
         errorcode => '404',
     );

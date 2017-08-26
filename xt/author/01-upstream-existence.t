@@ -1,6 +1,9 @@
 #!perl -T
 
-use strict; use warnings; no indirect 'fatal'; use namespace::autoclean;
+use strict;
+use warnings;
+no indirect 'fatal';
+use namespace::autoclean;
 
 use Readonly;
 use Test::More;
@@ -12,8 +15,14 @@ use CloudFlare::Client;
 plan tests => 1;
 
 # Check we can hit the service and it fails our call
-throws_ok { Readonly my $api => CloudFlare::Client::->new( user   => 'user',
-                                                           apikey => 'KEY');
-          # Picked because takes no args
-          $api->zoneLoadMulti } 'CloudFlare::Client::Exception::Upstream',
-          'Upstream service exists and responds'
+throws_ok {
+    Readonly my $api => CloudFlare::Client::->new(
+        user   => 'user',
+        apikey => 'KEY'
+    );
+
+    # Picked because takes no args
+    $api->zoneLoadMulti
+}
+'CloudFlare::Client::Exception::Upstream',
+  'Upstream service exists and responds';

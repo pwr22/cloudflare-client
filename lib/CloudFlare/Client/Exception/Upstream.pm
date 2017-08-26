@@ -1,11 +1,15 @@
 package CloudFlare::Client::Exception::Upstream;
+
 # ABSTRACT: Upstream CloudFlare API Exception
 
-use strict; use warnings; no indirect 'FATAL'; use namespace::autoclean;
-use mro 'c3';
+use strict;
+use warnings;
+no indirect 'FATAL';
+use namespace::autoclean;
 
 use Readonly;
-use Moose; use MooseX::StrictConstructor;
+use Moose;
+use MooseX::StrictConstructor;
 use CloudFlare::Client::Types 'ErrorCode';
 
 # VERSION
@@ -13,11 +17,12 @@ use CloudFlare::Client::Types 'ErrorCode';
 extends 'Throwable::Error';
 
 has errorCode => (
-    is       => 'ro',
-    isa      => ErrorCode,);
+    is  => 'ro',
+    isa => ErrorCode,
+);
 
 __PACKAGE__->meta->make_immutable;
-1; # End of CloudFlare::Client::Exception::Upstream
+1;    # End of CloudFlare::Client::Exception::Upstream
 
 __END__
 
@@ -25,15 +30,16 @@ __END__
 
     use CloudFlare::Client::Exception::Upstream;
 
-    CloudFlare::Client::Exception::Upstream::->throw(
+    CloudFlare::Client::Exception::Upstream->throw(
         message   => 'Bad things occured',
         errorCode => 'E_MAXAPI',
     );
 
-    my $e = CloudFlare::Client::Exception::Upstream::->new(
+    my $e = CloudFlare::Client::Exception::Upstream->new(
         message   => 'Bad things happened',
         errorcode => 'E_MAXAPI',
     );
+
     $e->throw;
 
 =attr message
@@ -49,11 +55,10 @@ E_UNAUTH, E_INVLDINPUT or E_MAXAPI. Readonly
 
 On the class, throw a new exception
 
-    CloudFlare::Client::Exception::Upstream::->throw(
+    CloudFlare::Client::Exception::Upstream->throw(
         message   => 'Bad things occured',
         errorCode => 'E_MAXAPI',
     );
-    ...
 
 On an instance, throw that exception
 
@@ -63,7 +68,7 @@ On an instance, throw that exception
 
 Construct a new exception
 
-    my $e = CloudFlare::Client::Exception::Upstream::->new(
+    my $e = CloudFlare::Client::Exception::Upstream->new(
         message   => 'Bad things happened',
         errorcode => 'E_MAXAPI',
     );

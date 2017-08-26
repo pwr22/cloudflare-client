@@ -4,12 +4,15 @@
 # connection cannot be made
 package CloudFlare::Client::Test;
 
-use strict; use warnings; no indirect 'fatal'; use namespace::autoclean;
-use mro 'c3';
+use strict;
+use warnings;
+no indirect 'fatal';
+use namespace::autoclean;
 
 use Readonly;
 use Try::Tiny;
-use Moose; use MooseX::StrictConstructor;
+use Moose;
+use MooseX::StrictConstructor;
 
 use Test::More;
 use Test::Exception;
@@ -27,11 +30,13 @@ __PACKAGE__->meta->make_immutable;
 # Test upstream failures
 # Catch potential failure
 Readonly my $API => try {
-        CloudFlare::Client::Test::->new( user => 'user', apikey  => 'KEY')}
-    catch { diag $_ };
+    CloudFlare::Client::Test::->new( user => 'user', apikey => 'KEY' )
+}
+catch { diag $_ };
+
 # Valid values
 Readonly my $ZONE  => 'zone.co.uk';
 Readonly my $ITRVL => 20;
-throws_ok { $API->action( z => $ZONE, interval => $ITRVL )}
-          'CloudFlare::Client::Exception::Connection',
-          "methods die with a connection error";
+throws_ok { $API->action( z => $ZONE, interval => $ITRVL ) }
+'CloudFlare::Client::Exception::Connection',
+  "methods die with a connection error";
