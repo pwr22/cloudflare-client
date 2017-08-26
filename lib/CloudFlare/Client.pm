@@ -6,19 +6,14 @@ use strict;
 use warnings;
 no indirect 'fatal';
 use namespace::autoclean;
-
+use Carp;
 use Readonly;
 use Moose;
 use MooseX::StrictConstructor;
 use Types::Standard 'Str';
-use CloudFlare::Client::Types 'LWPUserAgent';
 
-use CloudFlare::Client::Exception::Connection;
-use CloudFlare::Client::Exception::Upstream;
 use LWP::UserAgent 6.02;
-
-# This isn't used directly but we want the dependency
-use LWP::Protocol::https 6.02;
+use LWP::Protocol::https 6.02;    # Not used but we want the dependency
 use JSON::MaybeXS;
 
 # VERSION
@@ -38,16 +33,16 @@ has '_key' => (
     init_arg => 'apikey',
 );
 
-Readonly my $UA_STRING => "CloudFlare::Client/$CloudFlare::Client::VERSION";
+Readonly my $UA_STRING => "CloudFlare::Client/$VERSION";
 
 sub _buildUa {
-    Readonly my $ua => LWP::UserAgent::->new;
+    Readonly my $ua => LWP::UserAgent->new;
     $ua->agent($UA_STRING);
     return $ua;
 }
 has '_ua' => (
     is       => 'ro',
-    isa      => LWPUserAgent,
+    isa      => 'LWP::UserAgent',
     init_arg => undef,
     builder  => '_buildUa',
 );
@@ -72,18 +67,19 @@ sub _apiCall {
         }
     );
 
-    # Handle connection errors
-    CloudFlare::Client::Exception::Connection::->throw(
-        status  => $res->status_line,
-        message => 'HTTPS request failed',
-    ) unless $res->is_success;
+    croak 'HTTP request failed with status ' . $res->status_line
+      unless $res->is_success;
 
-    # Handle errors from CF
-    Readonly my $info => decode_json( $res->decoded_content );
-    CloudFlare::Client::Exception::Upstream::->throw(
-        errorCode => $info->{err_code},
-        message   => $info->{msg},
-    ) unless $info->{result} eq 'success';
+    my $info = decode_json( $res->decoded_content );
+
+    unless ( $info->{result} eq 'success' ) {
+        my $err_code_info =
+          defined( $info->{err_code} )
+          ? "code $info->{err_code}"
+          : 'no error code';
+
+        croak "API errored with $err_code_info and message $info->{msg}";
+    }
 
     return $info->{response};
 }

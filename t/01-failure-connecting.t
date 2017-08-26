@@ -24,13 +24,13 @@ extends 'CloudFlare::Client';
 
 # Override the real user agent with a mocked one
 # It will always fail to connect
-sub _buildUa { Test::LWP::UserAgent::->new }
+sub _buildUa { Test::LWP::UserAgent->new }
 __PACKAGE__->meta->make_immutable;
 
 # Test upstream failures
 # Catch potential failure
 Readonly my $API => try {
-    CloudFlare::Client::Test::->new( user => 'user', apikey => 'KEY' )
+    CloudFlare::Client::Test->new( user => 'user', apikey => 'KEY' )
 }
 catch { diag $_ };
 
@@ -38,5 +38,5 @@ catch { diag $_ };
 Readonly my $ZONE  => 'zone.co.uk';
 Readonly my $ITRVL => 20;
 throws_ok { $API->action( z => $ZONE, interval => $ITRVL ) }
-'CloudFlare::Client::Exception::Connection',
+qr/HTTP request failed with status 404 Not Found/,
   "methods die with a connection error";
