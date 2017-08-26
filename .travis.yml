@@ -28,4 +28,28 @@ matrix:
     - perl: '5.12'
   fast_finish: true
 before_install:
-  - eval $(curl https://travis-perl.github.io/init) --auto
+  - git clone git://github.com/travis-perl/helpers ~/travis-perl-helpers
+  - source ~/travis-perl-helpers/init
+
+  - curl -sL --compressed https://git.io/cpm > /tmp/cpm # Get cpm for faster installs
+  - chmod +x /tmp/cpm
+
+  - perlbrew use 5.20-extras # Need a newer perl to do the dzil build
+  - perl --version
+
+  - dzil authordeps | xargs /tmp/cpm install -gw${SYSTEM_CORES} # What do we need for dist build
+  - dzil build --in /tmp/build
+
+  - build-perl # Get the perl we want to test
+  - perl --version
+
+  - cd /tmp/build # Be ready
+install:
+  - /tmp/cpm install -gw${SYSTEM_CORES} --with-recommends --with-develop
+  - cpan-install --coverage   # installs converage prereqs, if enabled
+before_script:
+  - coverage-setup
+script:
+  - prove -l -j$(test-jobs) $(test-files)   # parallel testing
+after_success:
+  - coverage-report
