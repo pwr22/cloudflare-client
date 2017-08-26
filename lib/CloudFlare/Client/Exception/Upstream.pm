@@ -39,7 +39,7 @@ __END__
         message   => 'Bad things happened',
         errorcode => 'E_MAXAPI',
     );
-    
+
     $e->throw;
 
 =attr message

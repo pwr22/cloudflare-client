@@ -30,6 +30,7 @@ has '_user' => (
     required => 1,
     init_arg => 'user',
 );
+
 has '_key' => (
     is       => 'ro',
     isa      => Str,
@@ -94,7 +95,7 @@ sub AUTOLOAD {
     our $AUTOLOAD;
 
     # pull action out of f.q. method name
-    (my $act = $AUTOLOAD) =~ s/.*:://;
+    ( my $act = $AUTOLOAD ) =~ s/.*:://;
     return $self->_apiCall( $act, @_ );
 }
 
@@ -113,7 +114,7 @@ __END__
         user   => $CF_USER,
         apikey => $CF_KEY
     );
-    
+
     $api->stats( z => $ZONE, interval => $INTERVAL );
     ...
 
