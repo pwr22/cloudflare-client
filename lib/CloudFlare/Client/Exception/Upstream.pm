@@ -1,10 +1,15 @@
 package CloudFlare::Client::Exception::Upstream;
+
 # ABSTRACT: Upstream CloudFlare API Exception
 
-use strict; use warnings; no indirect 'FATAL'; use namespace::autoclean;
+use strict;
+use warnings;
+no indirect 'FATAL';
+use namespace::autoclean;
 
 use Readonly;
-use Moose; use MooseX::StrictConstructor;
+use Moose;
+use MooseX::StrictConstructor;
 use CloudFlare::Client::Types 'ErrorCode';
 
 # VERSION
@@ -12,11 +17,12 @@ use CloudFlare::Client::Types 'ErrorCode';
 extends 'Throwable::Error';
 
 has errorCode => (
-    is       => 'ro',
-    isa      => ErrorCode,);
+    is  => 'ro',
+    isa => ErrorCode,
+);
 
 __PACKAGE__->meta->make_immutable;
-1; # End of CloudFlare::Client::Exception::Upstream
+1;    # End of CloudFlare::Client::Exception::Upstream
 
 __END__
 

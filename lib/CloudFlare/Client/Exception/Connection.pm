@@ -1,10 +1,15 @@
 package CloudFlare::Client::Exception::Connection;
+
 # ABSTRACT: CloudFlare API Connection Exception
 
-use strict; use warnings; no indirect 'fatal'; use namespace::autoclean;
+use strict;
+use warnings;
+no indirect 'fatal';
+use namespace::autoclean;
 
 use Readonly;
-use Moose; use MooseX::StrictConstructor;
+use Moose;
+use MooseX::StrictConstructor;
 use Types::Standard 'Str';
 
 # VERSION
@@ -14,10 +19,11 @@ extends 'Throwable::Error';
 has status => (
     is       => 'ro',
     isa      => Str,
-    required => 1,);
+    required => 1,
+);
 
 __PACKAGE__->meta->make_immutable;
-1; # End of CloudFlare::Client::Exception::Connection
+1;    # End of CloudFlare::Client::Exception::Connection
 
 __END__
 
