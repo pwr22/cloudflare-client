@@ -1,7 +1,7 @@
 Revision history for CloudFlare-Client
 
 {{$NEXT}}
- - Travis less of the perls, so speed up jobs
+ - Remove JSON::Any from tests
 
 v0.55.5   2016-03-27
  - Travis build on previous release failed on build branch due to
