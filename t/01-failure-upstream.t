@@ -9,7 +9,6 @@ no indirect 'fatal';
 use namespace::autoclean;
 
 use Const::Fast;
-use Readonly;
 use Try::Tiny;
 use Moose;
 use MooseX::StrictConstructor;
@@ -30,7 +29,7 @@ const my $HTTP_RESP_MOCK => HTTP::Response->new(200);
 # Override the real user agent with a mocked one
 # It will always return the error response $HTTP_RESP_MOCK
 sub _buildUa {
-    Readonly my $ua => Test::LWP::UserAgent::->new;
+    my $ua = Test::LWP::UserAgent->new;
     $ua->map_response( qr{www.cloudflare.com/api_json.html}, $HTTP_RESP_MOCK );
     return $ua;
 }
@@ -38,14 +37,14 @@ sub _buildUa {
 __PACKAGE__->meta->make_immutable;
 
 # Test upstream failure
-Readonly my $API =>
+const my $API =>
   CloudFlare::Client::Test->new( user => 'user', apikey => 'KEY' );
 
 # Valid values
-Readonly my $ZONE     => 'zone.co.uk';
-Readonly my $ITRVL    => 20;
-Readonly my $ERR_CODE => 'E_UNAUTH';
-Readonly my $ERR_MSG => 'something';
+const my $ZONE     => 'zone.co.uk';
+const my $ITRVL    => 20;
+const my $ERR_CODE => 'E_UNAUTH';
+const my $ERR_MSG => 'something';
 
 const my $RESP_CONTENT => {    # json body
     result   => 'error',

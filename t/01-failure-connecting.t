@@ -9,7 +9,7 @@ use warnings;
 no indirect 'fatal';
 use namespace::autoclean;
 
-use Readonly;
+use Const::Fast;
 use Try::Tiny;
 use Moose;
 use MooseX::StrictConstructor;
@@ -29,14 +29,15 @@ __PACKAGE__->meta->make_immutable;
 
 # Test upstream failures
 # Catch potential failure
-Readonly my $API => try {
+const my $API => try {
     CloudFlare::Client::Test->new( user => 'user', apikey => 'KEY' )
 }
 catch { diag $_ };
 
 # Valid values
-Readonly my $ZONE  => 'zone.co.uk';
-Readonly my $ITRVL => 20;
+const my $ZONE  => 'zone.co.uk';
+const my $ITRVL => 20;
+
 throws_ok { $API->action( z => $ZONE, interval => $ITRVL ) }
 qr/HTTP request failed with status 404 Not Found/,
   "methods die with a connection error";

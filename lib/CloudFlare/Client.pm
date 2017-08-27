@@ -7,7 +7,7 @@ use warnings;
 no indirect 'fatal';
 use namespace::autoclean;
 use Carp;
-use Readonly;
+use Const::Fast;
 use Moose;
 use MooseX::StrictConstructor;
 use Types::Standard 'Str';
@@ -33,10 +33,10 @@ has '_key' => (
     init_arg => 'apikey',
 );
 
-Readonly my $UA_STRING => "CloudFlare::Client/$VERSION";
+const my $UA_STRING => "CloudFlare::Client/$VERSION";
 
 sub _buildUa {
-    Readonly my $ua => LWP::UserAgent->new;
+    my $ua = LWP::UserAgent->new;
     $ua->agent($UA_STRING);
     return $ua;
 }
@@ -48,13 +48,13 @@ has '_ua' => (
 );
 
 # Calls through to the CF API, can throw exceptions under ::Exception::
-Readonly my $CF_URL => 'https://www.cloudflare.com/api_json.html';
+const my $CF_URL => 'https://www.cloudflare.com/api_json.html';
 
 sub _apiCall {
     my ( $self, $act, %args ) = @_;
 
     # query cloudflare
-    Readonly my $res => $self->_ua->post(
+    my $res = $self->_ua->post(
         $CF_URL,
         {
             %args,
@@ -106,7 +106,7 @@ __END__
 
     use CloudFlare::Client;
 
-    my $api = CloudFlare::Client::->new(
+    my $api = CloudFlare::Client->new(
         user   => $CF_USER,
         apikey => $CF_KEY
     );
@@ -129,7 +129,7 @@ CloudFlare::Client::Exception:: namespace
 
 Construct a new API object
 
-    my $api = CloudFlare::Client::->new(
+    my $api = CloudFlare::Client->new(
         user   => $CF_USER,
         apikey => $CF_KEY,
     );
