@@ -1,6 +1,7 @@
 Revision history for CloudFlare-Client
 
 {{$NEXT}}
+ - Use Const::Fast instead of Readonly
  - Throw string exceptions instead of objects (objects are overkill here)
  - Remove JSON::Any from tests
 
