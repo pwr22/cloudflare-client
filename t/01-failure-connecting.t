@@ -1,43 +1,32 @@
-#!perl -T
-
 # This file aims to test the failure of an API call when a
 # connection cannot be made
-package CloudFlare::Client::Test;
 
 use strict;
 use warnings;
-no indirect 'fatal';
 use namespace::autoclean;
-
 use Const::Fast;
-use Try::Tiny;
-use Moose;
-use MooseX::StrictConstructor;
+no indirect 'fatal';
 
-use Test::More;
+use Test::More 'no_plan';
 use Test::Exception;
-use Test::LWP::UserAgent;
 
-plan tests => 1;
+package CloudFlare::Client::Test {
+    use Moose;
+    use MooseX::StrictConstructor;
 
-extends 'CloudFlare::Client';
+    use Test::LWP::UserAgent;
 
-# Override the real user agent with a mocked one
-# It will always fail to connect
-sub _buildUa { Test::LWP::UserAgent->new }
-__PACKAGE__->meta->make_immutable;
+    extends 'CloudFlare::Client';
 
-# Test upstream failures
-# Catch potential failure
-const my $API => try {
-    CloudFlare::Client::Test->new( user => 'user', apikey => 'KEY' )
+    # Override the real user agent with a mocked one
+    # It will always fail to connect
+    sub _build_ua { Test::LWP::UserAgent->new() }
+
+    __PACKAGE__->meta->make_immutable;
 }
-catch { diag $_ };
 
-# Valid values
-const my $ZONE  => 'zone.co.uk';
-const my $ITRVL => 20;
+my $api = CloudFlare::Client::Test->new( user => 'user', apikey => 'KEY' );
 
-throws_ok { $API->action( z => $ZONE, interval => $ITRVL ) }
+throws_ok { $api->request( 'get', 'zones' ) }
 qr/HTTP request failed with status 404 Not Found/,
   "methods die with a connection error";

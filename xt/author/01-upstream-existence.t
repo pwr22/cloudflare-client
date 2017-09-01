@@ -1,18 +1,13 @@
-#!perl -T
-
 use strict;
 use warnings;
 no indirect 'fatal';
-use namespace::autoclean;
 
 use Const::Fast;
-use Test::More;
+use Test::More 'no_plan';
 use Test::Exception;
 use Test::RequiresInternet;
 
 use CloudFlare::Client;
-
-plan tests => 1;
 
 # Check we can hit the service and it fails our call
 throws_ok {
@@ -22,6 +17,6 @@ throws_ok {
     );
 
     # Picked because takes no args
-    $api->zoneLoadMulti
+    $api->request('GET', 'zones');
 }
-qr/API errored with/, 'Upstream service exists and responds';
+qr/API reported error/, 'Upstream service exists and responds';

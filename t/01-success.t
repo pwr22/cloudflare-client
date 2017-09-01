@@ -1,57 +1,70 @@
-#!perl -T
-
-# This file aims to test the correct functioning of all API calls
-package CloudFlare::Client::Test;
-
 use strict;
 use warnings;
-use namespace::autoclean;
-
 use Const::Fast;
 use Try::Tiny;
-use Moose;
-use MooseX::StrictConstructor;
 
-use Test::More;
+use Test::More 'no_plan';
 use Test::Exception;
 use Test::LWP::UserAgent;
+
 use HTTP::Response;
 use JSON::MaybeXS;
 
-plan tests => 1;
-
-extends 'CloudFlare::Client';
-
-# Build a simple valid response
-# Response payload
-const my $RSP_PL => { val => 1 };
-
-# Full response
-const my $CNT_DATA => { result => 'success', response => $RSP_PL };
+const my $CNT_DATA => decode_json(<<'END_JSON');
+{
+  "result": {
+    "id":"2d4d028de3015345da9420df5514dad0",
+    "type":"A",
+    "name":"blog.example.com",
+    "content":"2.6.4.5",
+    "proxiable":true,
+    "proxied":false,
+    "ttl":1,
+    "priority":0,
+    "locked":false,
+    "zone_id":"cd7d068de3012345da9420df9514dad0",
+    "zone_name":"example.com",
+    "modified_on":"2014-05-28T18:46:18.764425Z",
+    "created_on":"2014-05-28T18:46:18.764425Z"
+  },
+  "success": true,
+  "errors": [],
+  "messages": [],
+  "result_info": {
+    "page": 1,
+    "per_page": 20,
+    "count": 1,
+    "total_count": 200
+  }
+}
+END_JSON
 
 # Reponse from server
 const my $CNT_RSP => HTTP::Response->new(200);
+$CNT_RSP->header( 'Content-Type' => 'application/json' );
 $CNT_RSP->content( encode_json($CNT_DATA) );
 
-# Override the real user agent with a mocked one
-# It will always return the valid response $CNT_RSP
-sub _buildUa {
-    my $ua = Test::LWP::UserAgent->new;
-    $ua->map_response( qr{www.cloudflare.com/api_json.html}, $CNT_RSP );
-    return $ua;
-}
-__PACKAGE__->meta->make_immutable;
+package CloudFlare::Client::Test {
+    use Moose;
+    use MooseX::StrictConstructor;
 
-# Catch potential failure
-const my $API => try {
-    CloudFlare::Client::Test->new( user => 'user', apikey => 'KEY' )
-}
-catch { diag $_ };
+    extends 'CloudFlare::Client';
 
-# Valid values
-const my $ZONE  => 'zone.co.uk';
-const my $ITRVL => 20;
+    sub _build_ua {
+        my $ua = Test::LWP::UserAgent->new;
+
+        $ua->map_response( qr{https://api.cloudflare.com/client/v4/},
+            $CNT_RSP );
+
+        return $ua;
+    }
+
+    __PACKAGE__->meta->make_immutable;
+}
+
+my $api = CloudFlare::Client::Test->new( user => 'user', apikey => 'KEY' );
+
 lives_and {
-    is_deeply $API->action( zone => $ZONE, interval => $ITRVL ), $RSP_PL
+    is_deeply( $api->request( 'GET', 'zones' ), $CNT_DATA );
 }
-"action works";
+"GET request works";

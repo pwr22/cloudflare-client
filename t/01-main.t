@@ -3,18 +3,17 @@
 # Aims to test basic usage of CloudFlare::Client
 use strict;
 use warnings;
-no indirect 'fatal';
-use namespace::autoclean;
-
 use Const::Fast;
 use Try::Tiny;
+use namespace::autoclean;
+no indirect 'fatal';
 
-use Test::More;
+use Test::More 'no_plan';
 use Test::Moose;
 use Test::Exception;
+
 use CloudFlare::Client;
 
-plan tests     => 9;
 const my $USER => 'blah';
 const my $KEY  => 'blah';
 

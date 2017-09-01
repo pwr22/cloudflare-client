@@ -1,68 +1,57 @@
-#!perl -T
-
 # This file aims to test the failure of an API call
-package CloudFlare::Client::Test;
 
 use strict;
 use warnings;
-no indirect 'fatal';
 use namespace::autoclean;
-
 use Const::Fast;
-use Try::Tiny;
-use Moose;
-use MooseX::StrictConstructor;
+no indirect 'fatal';
 
-use Test::More;
-use Test::Exception;
 use Test::LWP::UserAgent;
 use HTTP::Response;
 use JSON::MaybeXS;
 
-plan tests => 2;
+use Test::Exception;
+use Test::More 'no_plan';
 
-extends 'CloudFlare::Client';
+# This is what we will be mocking to return - we set the content later per test
+my $mock_http_resp = HTTP::Response->new();
 
-# This is what we will be mocking to return - we set the content later
-const my $HTTP_RESP_MOCK => HTTP::Response->new(200);
+package CloudFlare::Client::Test {
+    use Moose;
+    use MooseX::StrictConstructor;
 
-# Override the real user agent with a mocked one
-# It will always return the error response $HTTP_RESP_MOCK
-sub _buildUa {
-    my $ua = Test::LWP::UserAgent->new;
-    $ua->map_response( qr{www.cloudflare.com/api_json.html}, $HTTP_RESP_MOCK );
-    return $ua;
+    extends 'CloudFlare::Client';
+
+    # Override the real user agent with a mocked one
+    sub _build_ua {
+        my $mock_ua = Test::LWP::UserAgent->new();
+
+        $mock_ua->map_response( qr{https://api.cloudflare.com/client/v4/},
+            $mock_http_resp );
+
+        return $mock_ua;
+    }
+
+    __PACKAGE__->meta->make_immutable;
 }
 
-__PACKAGE__->meta->make_immutable;
-
 # Test upstream failure
-const my $API =>
-  CloudFlare::Client::Test->new( user => 'user', apikey => 'KEY' );
+my $api = CloudFlare::Client::Test->new( user => 'user', apikey => 'KEY' );
 
-# Valid values
-const my $ZONE     => 'zone.co.uk';
-const my $ITRVL    => 20;
-const my $ERR_CODE => 'E_UNAUTH';
-const my $ERR_MSG => 'something';
+const my $ERROR_BODY => q{{
+  "result": null,
+  "success": false,
+  "errors": [{"code":1003,"message":"Invalid or missing zone id."}],
+  "messages": []
+}};
+const my $ERROR_SECTION_REGEX =>    # key order isn't guaranteed
+qr/\Q[{"code":1003,"message":"Invalid or missing zone id."}]\E|\Q[{"message":"Invalid or missing zone id.","code":1003}]\E/;
 
-const my $RESP_CONTENT => {    # json body
-    result   => 'error',
-    err_code => $ERR_CODE,
-    msg      => 'something',
-};
-$HTTP_RESP_MOCK->content( encode_json($RESP_CONTENT) );    # set the mock
+# set the mock
+$mock_http_resp->code(400);
+$mock_http_resp->header( 'Content-Type' => 'application/json' );
+$mock_http_resp->content($ERROR_BODY);
 
-throws_ok { $API->action( z => $ZONE, interval => $ITRVL ) }
-qr/API errored with code $ERR_CODE and message $ERR_MSG/,
-  "methods die with an error response including a code";
-
-const my $RESP_WITHOUT_CODE => {                # json body
-    result => 'error',
-    msg    => 'something',
-};
-$HTTP_RESP_MOCK->content( encode_json($RESP_WITHOUT_CODE) );    # set the mock
-
-throws_ok { $API->action( z => $ZONE, interval => $ITRVL ) }
-qr/API errored with no error code and message $ERR_MSG/,
-  "methods die with an error response including a code";
+throws_ok { $api->request( 'get' => 'zones/' ) }
+qr/\QHTTP request failed with status 400 Bad Request and API reported error(s) \E$ERROR_SECTION_REGEX/,
+  "dies and logs body when it exists when HTTP error detected";
