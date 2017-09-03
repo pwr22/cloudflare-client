@@ -36,7 +36,7 @@ package CloudFlare::Client::Test {
 }
 
 # Test upstream failure
-my $api = CloudFlare::Client::Test->new( user => 'user', apikey => 'KEY' );
+my $api = CloudFlare::Client::Test->new( email => 'user', key => 'key' );
 
 const my $ERROR_BODY => q{{
   "result": null,

@@ -20,18 +20,16 @@ use JSON::MaybeXS;
 # VERSION
 
 # CF credentials
-has '_user' => (
+has 'email' => (
     is       => 'ro',
     isa      => Str,
     required => 1,
-    init_arg => 'user',
 );
 
-has '_key' => (
+has 'key' => (
     is       => 'ro',
     isa      => Str,
     required => 1,
-    init_arg => 'apikey',
 );
 
 const my $UA_STRING => "CloudFlare::Client/$VERSION";
@@ -50,6 +48,7 @@ has '_ua' => (
 );
 
 const my $BASE_URI => 'https://api.cloudflare.com/client/v4/';
+const my %ALLOWED_REQUESTS => ( get => 1, post => 1, patch => 1, delete => 1 );
 
 # Make a request to the API
 sub request {
@@ -57,15 +56,19 @@ sub request {
 
     my $lwp_method = lc $type;
 
+    croak "Invalid request type $lwp_method, allowed types are " . join ' or ',
+      keys %ALLOWED_REQUESTS
+      unless exists $ALLOWED_REQUESTS{$lwp_method};
+
     # These are optional
     my @content_params =
       defined $params ? ( Content => encode_json($params) ) : ();
 
     my $res = $self->_ua->$lwp_method(
         $BASE_URI . $end_point,
-        'X-Auth-Email' => $self->_user,
-        'X-Auth-Key'   => $self->_key,
-        'Content-Type' => 'application/json',    # Dunno if this is required
+        'X-Auth-Email' => $self->email,
+        'X-Auth-Key'   => $self->key,
+        'Content-Type' => 'application/json',    # Send this always, to be safe
         @content_params,
     );
 
@@ -108,8 +111,8 @@ __END__
     use CloudFlare::Client;
 
     my $api = CloudFlare::Client->new(
-        user   => $CF_USER,
-        apikey => $CF_KEY
+        email => $CF_USER,
+        key   => $CF_KEY
     );
 
     $api->stats( z => $ZONE, interval => $INTERVAL );
@@ -131,15 +134,15 @@ CloudFlare::Client::Exception:: namespace
 Construct a new API object
 
     my $api = CloudFlare::Client->new(
-        user   => $CF_USER,
-        apikey => $CF_KEY,
+        email => $CF_EMAIL,
+        key   => $CF_API_KEY,
     );
 
 =method request
 
 Make a request to the API
 
-    # $api->request( $TYPE, $PATH[, $JSON_B])
+    # $api->request( $HTTP_REQUEST_TYPE, $PATH_TO_RESOURCE [, $JSON_BODY] )
     $api->request( 'GET', 'zones' );
 
 =head1 SEE ALSO

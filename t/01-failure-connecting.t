@@ -25,7 +25,7 @@ package CloudFlare::Client::Test {
     __PACKAGE__->meta->make_immutable;
 }
 
-my $api = CloudFlare::Client::Test->new( user => 'user', apikey => 'KEY' );
+my $api = CloudFlare::Client::Test->new( email => 'user', key => 'KEY' );
 
 throws_ok { $api->request( 'get', 'zones' ) }
 qr/HTTP request failed with status 404 Not Found/,

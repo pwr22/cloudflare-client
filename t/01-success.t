@@ -62,7 +62,7 @@ package CloudFlare::Client::Test {
     __PACKAGE__->meta->make_immutable;
 }
 
-my $api = CloudFlare::Client::Test->new( user => 'user', apikey => 'KEY' );
+my $api = CloudFlare::Client::Test->new( email => 'user', key => 'KEY' );
 
 lives_and {
     is_deeply( $api->request( 'GET', 'zones' ), $CNT_DATA );
